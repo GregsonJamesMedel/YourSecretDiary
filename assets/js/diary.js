@@ -17,11 +17,24 @@ function MainDiarySideBarClick(){
             alert('edit');
         }else if(targetElement.getAttribute('Id') == 'delete'){
             if(confirm("Are you sure you want to delete this post?")==true){
-                alert('deleted');
+                DeleteClickHandler(targetElement.getAttribute('data-Id'));
             }
         }
     }
 
+}
+
+function DeleteClickHandler(postID){
+    var http = XMLHttpRequest();
+    if(http.readyState == 4 && http.status == 200){
+        if(http.response == true){
+            alert('Post has been successfully deleted!');
+        }else{
+            alert('Failed to delete post');
+        }
+    }
+    http.open('POST','http://localhost:8080/YourSecretDiary/Diary/DeletePost/' + postID,true);
+    http.send();
 }
 
 function GetPost(PId,UId){
