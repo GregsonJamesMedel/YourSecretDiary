@@ -1,60 +1,87 @@
-window.onload = function(){
+var base_Url = 'http://localhost:8080/YourSecretDiary/';
+var ref = this;
+
+window.onload = function () {
 
     MainDiarySideBarClick();
 
 }
 
-function MainDiarySideBarClick(){
+function MainDiarySideBarClick() {
     var sidebarList = document.getElementById('sidebarList');
-    sidebarList.onclick = function(e){
+    sidebarList.onclick = function (e) {
         e = event || window.event;
         e.preventDefault();
         var targetElement = e.target || e.srcElement;
-        if(targetElement.getAttribute('Id') == 'post'){
-            document.getElementById('diaryTitle').innerHTML = targetElement.getAttribute('title');
-            document.getElementById('diaryBody').innerHTML = targetElement.getAttribute('data-body');
-        }else if(targetElement.getAttribute('Id') == 'edit'){
+        CheckTargetElementID(targetElement);
+    }
+
+}
+
+function CheckTargetElementID(targetElmt) {
+    switch (targetElmt.getAttribute('Id')) {
+        case 'post':
+            SetDataInMainDiary(targetElmt);
+            break;
+        case 'edit':
             alert('edit');
-        }else if(targetElement.getAttribute('Id') == 'delete'){
-            if(confirm("Are you sure you want to delete this post?")==true){
-                DeleteClickHandler(targetElement.getAttribute('data-Id'));
-            }
-        }
+            break;
+        case 'delete':
+            DeleteClickHandler(targetElmt);
+            break;
     }
-
 }
 
-function DeleteClickHandler(postID){
-    var http = XMLHttpRequest();
-    if(http.readyState == 4 && http.status == 200){
-        if(http.response == true){
-            alert('Post has been successfully deleted!');
-        }else{
-            alert('Failed to delete post');
-        }
-    }
-    http.open('POST','http://localhost:8080/YourSecretDiary/Diary/DeletePost/' + postID,true);
-    http.send();
+function SetDataInMainDiary(targetElmt) {
+    document.getElementById('diaryTitle').innerHTML = targetElmt.getAttribute('title');
+    document.getElementById('diaryBody').innerHTML = targetElmt.getAttribute('data-body');
 }
 
-function GetPost(PId,UId){
+function DeleteClickHandler(targetElmt) {
+    if (confirm("Are you sure you want to delete this post?") == true) {
+        DeleteAjax(targetElmt.getAttribute('data-Id'));
+        ref.location.reload(true);
+    } else {
+        alert('mali');
+    }
+}
+
+function DeleteAjax(postID) {
+    var result;
+
+    try {
+        var http = new XMLHttpRequest();
+        if (http.readyState == 4 && http.status == 200) {
+            result = http.response;
+        }
+        http.open('POST', base_Url + 'Diary/DeletePost/' + postID, true);
+        http.send();
+    } catch (e) {
+        ref.alert(e);
+        result = false();
+    }
+
+    return result;
+}
+
+function GetPost(PId, UId) {
     var Post;
     var http = new XMLHttpRequest();
-	if(http.readyState == 4 && http.status == 200){
-           Post = http.response;	
-	}
-	http.open('GET','http://localhost:8080/YourSecretDiary/Api/YSD_Api/GetPost/' + PId + '/' + UId,true);
+    if (http.readyState == 4 && http.status == 200) {
+        Post = http.response;
+    }
+    http.open('GET', base_Url + 'Api/YSD_Api/GetPost/' + PId + '/' + UId, true);
     http.send();
     return Post;
 }
 
-function NewPost(){
+function NewPost() {
     var params = 'Title=testinglangto&Body=lalonato';
     var http = new XMLHttpRequest();
-    if(http.readyState = 4 && http.status == 200){
+    if (http.readyState = 4 && http.status == 200) {
         alert('good to go');
     }
-    http.open('POST','http://localhost:8080/YourSecretDiary/Api/YSD_Api/NewPost',true);
+    http.open('POST', base_Url + 'Api/YSD_Api/NewPost', true);
     http.send(params);
 
 }
