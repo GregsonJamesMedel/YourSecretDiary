@@ -60,4 +60,14 @@ class Post extends CI_Model{
 
     }
 
+    public function IsDate_Valid($date){
+        $query = $this->db->query('select Id from Posts where DatePost =' . $this->db->escape($date));
+        $row = $query->row_array();
+        if($row['Id'] > 0){
+            return FALSE;
+        }else{
+            return TRUE;
+        }
+    }
+
 }

@@ -49,7 +49,7 @@ class Diary extends CI_Controller{
 
             $this->form_validation->set_rules('title','Title','required');
             $this->form_validation->set_rules('body','Body','required');
-            $this->form_validation->set_rules('datepost','Date Post','required');
+            $this->form_validation->set_rules('datepost','Date Post','required|callback_Check_DatePost');
 
             if($this->form_validation->run()){
 
@@ -94,8 +94,17 @@ class Diary extends CI_Controller{
         }else{
             redirect(base_url('Account/Login'));
         }
+    }
 
-       
+    public function Check_DatePost($date){
+        $this->load->model('Post');
+
+        if(!$this->Post->IsDate_Valid($date)){
+            $this->form_validation->set_message('Check_DatePost','You already have a post in this date');
+            return FALSE;
+        }else{
+            return TRUE;
+        }
     }
 
 }
