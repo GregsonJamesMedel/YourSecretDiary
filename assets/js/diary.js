@@ -4,6 +4,7 @@ var ref = this;
 window.onload = function () {
 
     MainDiarySideBarClick();
+    InitializeDiaryPost();
 
 }
 
@@ -70,6 +71,12 @@ function DeleteAjax(postID) {
         ref.alert(e);
         return false;
     }
+}
+
+function InitializeDiaryPost(){
+    var postli = document.getElementById('sidebarList');
+    document.getElementById('diaryTitle').innerHTML = postli.firstElementChild.firstElementChild.getAttribute('title');
+    document.getElementById('diaryBody').innerHTML = postli.firstElementChild.firstElementChild.getAttribute('data-body');
 }
 
 function GetPost(PId, UId) {

@@ -59,7 +59,7 @@ class Post extends CI_Model{
 
     public function RetrieveAllPost($UId){
 
-        $sql = 'select * from Posts where userid = ' . $UId;
+        $sql = 'select * from Posts where userid = ' . $UId . ' order by DatePost desc';
         $query = $this->db->query($sql);
         return $query->result();
 
