@@ -16,7 +16,6 @@ function MainDiarySideBarClick() {
         var targetElement = e.target || e.srcElement;
         CheckTargetElementID(targetElement);
     }
-
 }
 
 function CheckTargetElementID(targetElmt) {
@@ -77,26 +76,4 @@ function InitializeDiaryPost(){
     var postli = document.getElementById('sidebarList');
     document.getElementById('diaryTitle').innerHTML = postli.firstElementChild.firstElementChild.getAttribute('title');
     document.getElementById('diaryBody').innerHTML = postli.firstElementChild.firstElementChild.getAttribute('data-body');
-}
-
-function GetPost(PId, UId) {
-    var Post;
-    var http = new XMLHttpRequest();
-    if (http.readyState == 4 && http.status == 200) {
-        Post = http.response;
-    }
-    http.open('GET', base_Url + 'Api/YSD_Api/GetPost/' + PId + '/' + UId, true);
-    http.send();
-    return Post;
-}
-
-function NewPost() {
-    var params = 'Title=testinglangto&Body=lalonato';
-    var http = new XMLHttpRequest();
-    if (http.readyState = 4 && http.status == 200) {
-        alert('good to go');
-    }
-    http.open('POST', base_Url + 'Api/YSD_Api/NewPost', true);
-    http.send(params);
-
 }
