@@ -28,56 +28,39 @@ class Account extends CI_Controller{
             $this->load->model('User');
 
             if($this->User->Login_Check($username,$password)){
-
                 redirect(base_url('Diary'));
-                
             }else{
-
                 $this->Login();
-
             }
         }else{
-
             $this->Login(TRUE);
-
         }
     }
 
     public function Logout(){
 
         if($this->session->userdata('currentUser')){
-
             $this->session->unset_userdata('currentUser');
             redirect(base_url());
-
         }
-
     }
 
     public function Register(){
 
         if(!empty($this->session->userdata('currentUser'))){
-
             redirect(base_url('Diary'));
-
         }else{
-            
             $data['view'] = 'Account/Register';
             $data['title'] = 'Your Secret Diary | Register';
             $this->load->view('templates/template',$data);
-
         }
-
     }
 
     public function RegistrationAction(){
 
         if(!empty($this->session->userdata('currentUser'))){
-
             redirect(base_url('Diary'));
-
         }else{
-
             $this->SetValidationRules();
             
             if($this->form_validation->run()){
@@ -102,9 +85,7 @@ class Account extends CI_Controller{
                 $this->load->view('templates/template',$data);
 
             }else{
-
                 $this->Register();
-
             }
         }
     }

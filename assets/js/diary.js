@@ -24,13 +24,21 @@ function CheckTargetElementID(targetElmt) {
             SetDataInMainDiary(targetElmt);
             break;
         case 'edit':
-            alert('edit');
+            EditClickHandler(targetElmt);
             break;
         case 'delete':
             DeleteClickHandler(targetElmt);
             break;
     }
 }
+
+function EditClickHandler(targetElmt){
+    if(confirm('Are you sure you want to edit this post?')==true){
+        var Id = targetElmt.parentNode.getAttribute('Id');
+        window.open(base_Url + 'Diary/EditPost/' + Id,'_self',null,true);
+    }
+}
+
 
 function SetDataInMainDiary(targetElmt) {
     document.getElementById('diaryTitle').innerHTML = targetElmt.getAttribute('title');

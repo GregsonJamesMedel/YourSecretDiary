@@ -26,10 +26,15 @@ class Post extends CI_Model{
         
     }
 
-    public function UpdatePost(){
+    public function UpdatePost($title,$body,$datepost,$id,$userid){
 
         $sql = 'Update Posts set Title=?, Body=?, DatePost=?, UserId=? where ID=?';
-        return $this->db->query($sql,array($this->Title, $this->Body, $this->DatePost, $this->UserId, $this->Id));
+        $result = $this->db->query($sql,array($title, $body, $datepost, $userid, $id));
+        if($result > 0){
+            return TRUE;
+        }else{
+            return FALSE;
+        }
 
     }
 
@@ -48,7 +53,7 @@ class Post extends CI_Model{
 
         $sql = 'select * from Posts where Id =' .$this->db->escape($PId). ' and UserId =' .$this->db->escape($UId). '';
         $query = $this->db->query($sql);
-        return $query->result();
+        return $query->row();
         
     }
 
