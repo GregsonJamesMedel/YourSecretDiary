@@ -28,13 +28,15 @@ class User extends CI_Model{
         }
     }
 
-    // public function isUsername_Valid($Un){
-    //     $this->db->where('Username',$Un);
-    //     if($this->db->get('Users') > 1){
-    //         return TRUE;
-    //     }else{
-    //         return FALSE;
-    //     }
-    // }
+    public function isUsername_Valid($Un){
+        $query = $this->db->query('select Id from Users where Username =' . $this->db->escape($Un));
+        $row = $query->row_array();
+        if($row['Id'] > 0){
+            return FALSE;
+        }else{
+            return TRUE;
+        }
+
+    }
 
 }

@@ -108,24 +108,26 @@ class Account extends CI_Controller{
             }
         }
     }
-
-    public function testof(){
-        // $title = 'Hello World';
-        // $res = $this->encryption->encrypt($title);
-        // echo 'Result = ' . $res;
-        // echo 'before = ' . $this->encryption->decrypt($res);
-        $res = $this->session->userdata('currentUser');
-        echo $res->Firstname;
-    }
-    
+  
     private function SetValidationRules(){
 
-        $this->form_validation->set_rules('username','Username','required|min_length[5]|max_length[25]');
+        $this->form_validation->set_rules('username','Username','required|min_length[5]|max_length[25]|callback_Username_Check');
         $this->form_validation->set_rules('password','Password','required|min_length[5]|max_length[25]');
         $this->form_validation->set_rules('firstname','Firstname','required|min_length[2]|max_length[25]');
         $this->form_validation->set_rules('middlename','Middlename','max_length[25]');
         $this->form_validation->set_rules('lastname','Lastname','required|min_length[5]|max_length[25]');
         
+    }
+
+    public function Username_Check($user){
+        $this->load->model('User');
+
+        if(!$this->User->isUsername_Valid($user)){
+            $this->form_validation->set_message('Username_Check','Username already exist!');
+            return FALSE;
+        }else{
+            return TRUE;
+        }
     }
 
 
