@@ -8,10 +8,10 @@
     <hr>
     <ul id="sidebarList">
         <?php foreach($Posts as $Post):?>
-            <li>
-                <a href="" id="post" class="shadow tooltip" data-body="<?= $this->encryption->decrypt($Post->Body); ?>" data-Id="<?= $Post->Id; ?>" title="<?= $this->encryption->decrypt($Post->Title); ?>"><?= $Post->DatePost; ?></a>
-                <a href="" id="edit" class="edit shadow" data-Id="<?= $Post->Id; ?>">E</a>
-                <a href="" id="delete" class="delete shadow" data-Id="<?= $Post->Id; ?>">D</a>
+            <li Id="<?= $Post->Id; ?>" >
+                <a href="" id="post" class="shadow tooltip" data-body="<?= $this->encryption->decrypt($Post->Body); ?>"  title="<?= $this->encryption->decrypt($Post->Title); ?>"><?= $Post->DatePost; ?></a>
+                <a href="" id="edit" class="edit shadow">E</a>
+                <a href="" id="delete" class="delete shadow">D</a>
             </li>
         <?php endforeach; ?>
     </ul>

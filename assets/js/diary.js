@@ -38,30 +38,34 @@ function SetDataInMainDiary(targetElmt) {
 }
 
 function DeleteClickHandler(targetElmt) {
+    
     if (confirm("Are you sure you want to delete this post?") == true) {
-        DeleteAjax(targetElmt.getAttribute('data-Id'));
-        ref.location.reload(true);
+        var unorderedList = document.getElementById('sidebarList');
+        var targetList = targetElmt.parentNode;
+        var res = DeleteAjax(targetList.getAttribute('Id'));
+        if(res){
+            unorderedList.removeChild(document.getElementById(targetList.getAttribute('Id')));
+        } 
     } else {
         alert('mali');
     }
 }
 
 function DeleteAjax(postID) {
-    var result;
 
     try {
         var http = new XMLHttpRequest();
-        if (http.readyState == 4 && http.status == 200) {
-            result = http.response;
+        http.onreadystatechange = function(){
+            if(this.readyState == 4 && this.status == 200){
+                return http.response;
+            }
         }
         http.open('POST', base_Url + 'Diary/DeletePost/' + postID, true);
         http.send();
     } catch (e) {
         ref.alert(e);
-        result = false();
+        return false;
     }
-
-    return result;
 }
 
 function GetPost(PId, UId) {
