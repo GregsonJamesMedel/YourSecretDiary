@@ -33,17 +33,13 @@ class Post extends CI_Model{
 
     }
 
-    public function DeletePost($PId){
-
-        $result =  $this->db->query('Delete from Posts where ID=' . $PId);
-        if($result->result() > 0){
-
+    public function DeletePost($PId,$UId){
+        
+        $this->db->query('Delete from Posts where ID=? and UserId=?',array($PId,$UId));
+        if($this->db->affected_rows() > 0){
             return TRUE;
-
-        }else{
-
+        }else {
             return FALSE;
-
         }
 
     }
