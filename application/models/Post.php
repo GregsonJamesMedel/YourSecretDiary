@@ -35,7 +35,16 @@ class Post extends CI_Model{
 
     public function DeletePost(){
 
-        return $this->db->query('Delete from Posts where ID=?',$this->Id);
+        $result =  $this->db->query('Delete from Posts where ID=?',$this->Id);
+        if($result > 0){
+
+            return TRUE;
+
+        }else{
+
+            return FALSE;
+
+        }
 
     }
 
