@@ -16,7 +16,7 @@ function MainDiarySideBarClick(){
         }else if(targetElement.getAttribute('Id') == 'edit'){
             alert('edit');
         }else if(targetElement.getAttribute('Id') == 'delete'){
-            if(("Are you sure you want to delete this post?")){
+            if(confirm("Are you sure you want to delete this post?")==true){
                 alert('deleted');
             }
         }
