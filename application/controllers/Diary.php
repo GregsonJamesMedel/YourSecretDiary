@@ -84,12 +84,18 @@ class Diary extends CI_Controller{
     }
 
     public function DeletePost($PId){
-        $this->load->model('Post');
-        if($this->Post->DeletePost($PId,$this->session->userdata('currentUser')->Id)){
-            echo 'true';
+        if(!empty($this->session->userdata('currentUser'))){
+            $this->load->model('Post');
+            if($this->Post->DeletePost($PId,$this->session->userdata('currentUser')->Id)){
+                echo 'true';
+            }else{
+                echo 'false';
+            }
         }else{
-            echo 'false';
+            redirect(base_url('Account/Login'));
         }
+
+       
     }
 
 }

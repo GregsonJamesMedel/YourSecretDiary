@@ -42,12 +42,8 @@ function DeleteClickHandler(targetElmt) {
     if (confirm("Are you sure you want to delete this post?") == true) {
         var unorderedList = document.getElementById('sidebarList');
         var targetList = targetElmt.parentNode;
-        var res = DeleteAjax(targetList.getAttribute('Id'));
-        if(res){
-            unorderedList.removeChild(document.getElementById(targetList.getAttribute('Id')));
-        } 
-    } else {
-        alert('mali');
+        DeleteAjax(targetList.getAttribute('Id'));
+        unorderedList.removeChild(document.getElementById(targetList.getAttribute('Id')));
     }
 }
 
